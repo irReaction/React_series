@@ -3,8 +3,7 @@ import './Inscription.scss';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Connexion from '../Connexion/Connexion'; 
-import { firebaseConfig } from '../Fonctions/co_ins_fontions';
+import { firebaseConfig } from '../Fonctions/firebaseConfig';
 
 
 function Inscription() {
