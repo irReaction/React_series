@@ -6,6 +6,6 @@ import Connexion from './Connexion/Connexion.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Inscription />
+    <App />
   </React.StrictMode>,
 )

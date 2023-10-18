@@ -1,12 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import Connextion from "./Connexion/Connexion";
 import "./App.css";
+import Inscription from "./Inscription/Inscription";
 
 function App() {
   // define your routes here
   return (
     <BrowserRouter>
-      <Routes></Routes>
+      <Routes>
+        <Route path="/connexion" element={<Connextion />} />
+        <Route path="/inscription" element={<Inscription />} />
+      </Routes>
     </BrowserRouter>
   );
 }

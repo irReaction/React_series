@@ -101,6 +101,8 @@ function Inscription() {
           <button type="submit">Créer</button>
         </form>
         <br></br>
+        <p>Déja un compte ? <Link className="boutonLiens" to="/connexion">Connectez-vous ici</Link></p>
+        <br></br>
         {messageInscriptionEffectuée && <p className="msgInscriptionValide">{messageInscriptionEffectuée}</p>}
       </div>
     </div>
