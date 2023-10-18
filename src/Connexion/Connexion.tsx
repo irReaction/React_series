@@ -3,6 +3,7 @@ import './Connexion.scss';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { firebaseConfig } from '../Fonctions/co_ins_fontions';
 
 
 function Inscription() {
@@ -13,16 +14,6 @@ function Inscription() {
   const [messageFormEmailVide, setMessageFormEmailVide] = useState('');
   const [messageFormPasswordVide, setMessageFormPasswordVide] = useState('');
   const [messageFormInvalide, setMessageFormInvalide] = useState('');
-
-  const firebaseConfig = {
-    apiKey: 'AIzaSyBLVJ-BSHE-c4bLNoFkm2w-VpELqUQYVEA',
-    authDomain: 'ereaction-32679.firebaseapp.com',
-    projectId: 'ereaction-32679',
-    storageBucket: 'ereaction-32679.appspot.com',
-    messagingSenderId: '1082701041903',
-    appId: '1:1082701041903:web:3912481e52aec1b31f4b1a',
-    measurementId: 'G-82HPE8X2S0',
-  };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
