@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import './Inscription.scss';
+import './Connexion.scss';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Connexion from '../Connexion/Connexion'; 
 
 
 function Inscription() {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [messageInscriptionEffectuée, setMessageInscriptionEffectuée] = useState('');
-  const [messageFormNameVide, setMessageFormNameVide] = useState('');
   const [messageFormEmailVide, setMessageFormEmailVide] = useState('');
   const [messageFormPasswordVide, setMessageFormPasswordVide] = useState('');
-  const [messageEmailDejaUtilisé, setMessageEmailDejaUtilisé] = useState('');
+  const [messageFormInvalide, setMessageFormInvalide] = useState('');
 
   const firebaseConfig = {
     apiKey: 'AIzaSyBLVJ-BSHE-c4bLNoFkm2w-VpELqUQYVEA',
@@ -35,11 +32,6 @@ function Inscription() {
     setMessageInscriptionEffectuée('');
     e.preventDefault();
 
-    if (name === '') {
-      setMessageFormNameVide('Veuillez remplir ce champ avec votre pseudo');
-      return;
-    } else { setMessageFormNameVide('');  setMessageInscriptionEffectuée('');}
-
     if (email === '') {
       setMessageFormEmailVide('Veuillez remplir ce champ avec votre email');
       return;
@@ -50,47 +42,20 @@ function Inscription() {
       return;
     } else { setMessageFormPasswordVide(''); setMessageInscriptionEffectuée('');}
 
-    const getEmail = query(collection(db, 'utilisateur'), where('email', '==', email));
+    const getEmail = query(collection(db, 'utilisateur'), where('email', '==', email), where('password', '==', password));
     const resultGetEmail = await getDocs(getEmail);
 
     if (!resultGetEmail.empty) {
-      setMessageEmailDejaUtilisé(
-        'Cet email est déjà utilisé. Vous voulez vous connecter ? ' +
-        <Link to="/connexion">Cliquez ici</Link>
-      );
+      setMessageInscriptionEffectuée('Votre compte a bien été connecté !');
       return;
-    } else { setMessageEmailDejaUtilisé(''); setMessageInscriptionEffectuée('');}
-
-    try {
-      const docRef = await addDoc(collection(db, 'utilisateur'), {
-        name: name,
-        email: email,
-        password: password,
-      });
-
-      setName('');
-      setEmail('');
-      setPassword('');
-
-      setMessageInscriptionEffectuée('Votre compte a bien été créé !');
-    } catch (error) {
-      console.error('Erreur lors de l\'ajout de l\'utilisateur : ', error);
-    }
+    } else { setMessageFormInvalide('Connexion refusée : email ou mot de passe incorrect');}
   };
 
   return (
     <div id="page_inscription">
-      <h1>Inscription</h1>
+      <h1>Connexion</h1>
       <div id="div_inscription">
         <form onSubmit={gestionFormValidation}>
-          <input
-            type="text"
-            placeholder="Votre pseudo"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {messageFormNameVide && <p className="msgErrorFormVide">{messageFormNameVide}</p>}
-
           <input
             type="email"
             placeholder="Votre email"
@@ -98,7 +63,6 @@ function Inscription() {
             onChange={(e) => setEmail(e.target.value)}
           />
           {messageFormEmailVide && <p className="msgErrorFormVide">{messageFormEmailVide}</p>}
-          {messageEmailDejaUtilisé && <p className="msgErrorFormVide">{messageEmailDejaUtilisé}</p>}
 
           <input
             type="password"
@@ -112,6 +76,7 @@ function Inscription() {
         </form>
         <br></br>
         {messageInscriptionEffectuée && <p className="msgInscriptionValide">{messageInscriptionEffectuée}</p>}
+        {messageFormInvalide && <p className="msgConnexionInvalide">{messageFormInvalide}</p>}
       </div>
     </div>
   );
