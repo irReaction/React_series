@@ -1,0 +1,22 @@
+html
+    {
+        body{
+            background: url('../assets/img/background.jpg');
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+    }
+
+#page_inscription 
+    {
+        display: flex;
+        flex-direction: column;
+        margin: 20%;
+        background-color: rgb(106, 99, 99);
+
+    }
+
+#div_inscription
+    {
+        display: flex;
+        flex-direction: column;
+    }
