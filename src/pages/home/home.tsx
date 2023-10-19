@@ -6,6 +6,10 @@ import "./home.scss";
 
 //api
 import fetchSerieData from "../../api/tmdb/fetchSerieData";
+import searchSerie from "../../api/tmdb/searchSerie";
+
+// components
+import { Input } from "@nextui-org/input";
 
 // misc
 import Movie from "../../misc/interfaces/interfaces";
@@ -18,6 +22,19 @@ function Home() {
   const [series, setSeries] = useState<Movie[]>([]);
   const [sortOrderByNote, setSortOrderByNote] = useState("asc");
   const [sortOrderByName, setSortOrderByName] = useState("asc");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (search) {
+      setTimeout(async () => {
+        searchSerie(search).then((response) => {
+          if (response) {
+            setSeries(response.data.results);
+          }
+        });
+      }, 600);
+    }
+  }, [search]);
 
   useEffect(() => {
     fetchSerieData(sortOrderByNote).then((response) => {
@@ -41,6 +58,11 @@ function Home() {
   return (
     <div>
       <h1>LISTE DES FILMS</h1>
+      <Input
+        onChange={(e) => {
+          setSearch(e.target.value);
+        }}
+      ></Input>
       <button
         onClick={() =>
           setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
