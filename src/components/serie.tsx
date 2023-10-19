@@ -4,7 +4,7 @@ import seriesData from './home';
 
 const Serie: React.FC = () => {
   const { id } = useParams();
-  const serie = seriesData.find((item) => item.id === parseInt(id, 10));
+  const serie = seriesData.find((item: any) => item.id === parseInt(id || '0', 10));
 
   if (!serie) {
     return <div>Série non trouvée.</div>;

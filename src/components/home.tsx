@@ -59,7 +59,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>LISTE DES SÉRIES</h1>
+      <h1>LISTE DES FILMS</h1>
       <button
         onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
       >
@@ -84,8 +84,8 @@ const Home: React.FC = () => {
       </div>
       <ul>
         {series.map((serie) => (
-          <Link to={`/home/${serie.id}`}>
-            <li key={serie.id}>
+          <Link to={`/serie/${serie.id}`} key={serie.id}>
+            <li>
               <img src={serie.imageUrl} alt={serie.name} />
               <h2>{serie.name}</h2>
               <p>Note : {serie.rating}</p>
