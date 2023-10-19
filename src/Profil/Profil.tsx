@@ -122,6 +122,7 @@ function Profil() {
         await updatePassword(user, newPassword);
         console.log('Mot de passe mis à jour avec succès');
         setModifiePassword(false);
+        navigate('/connexion');
       } else {
         console.error('User is null');
       }
