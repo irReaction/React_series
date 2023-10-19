@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import './Inscription.scss';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseConfig } from '../Fonctions/firebaseConfig';
-
+import firebase from 'firebase/compat/app';
 
 function Inscription() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [messageInscriptionEffectuée, setMessageInscriptionEffectuée] = useState('');
   const [messageFormNameVide, setMessageFormNameVide] = useState('');
   const [messageFormEmailVide, setMessageFormEmailVide] = useState('');
@@ -19,43 +19,38 @@ function Inscription() {
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  
+  const auth = getAuth(app);
 
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
-    setMessageInscriptionEffectuée('');
     e.preventDefault();
+    setMessageInscriptionEffectuée('');
+    setMessageFormNameVide('');
+    setMessageFormEmailVide('');
+    setMessageFormPasswordVide('');
+    setMessageEmailDejaUtilisé('');
 
     if (name === '') {
       setMessageFormNameVide('Veuillez remplir ce champ avec votre pseudo');
       return;
-    } else { setMessageFormNameVide('');  setMessageInscriptionEffectuée('');}
+    }
 
     if (email === '') {
       setMessageFormEmailVide('Veuillez remplir ce champ avec votre email');
       return;
-    } else { setMessageFormEmailVide(''); setMessageInscriptionEffectuée('');}
+    }
 
     if (password === '') {
       setMessageFormPasswordVide('Veuillez remplir ce champ avec votre mot de passe');
       return;
-    } else { setMessageFormPasswordVide(''); setMessageInscriptionEffectuée('');}
-
-    const getEmail = query(collection(db, 'utilisateur'), where('email', '==', email));
-    const resultGetEmail = await getDocs(getEmail);
-
-    if (!resultGetEmail.empty) {
-      setMessageEmailDejaUtilisé(
-        'Cet email est déjà utilisé. Vous voulez vous connecter ? ' +
-        <Link to="/connexion">Cliquez ici</Link>
-      );
-      return;
-    } else { setMessageEmailDejaUtilisé(''); setMessageInscriptionEffectuée('');}
+    }
 
     try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
       const docRef = await addDoc(collection(db, 'utilisateur'), {
         name: name,
-        email: email,
-        password: password,
+        email: user.email,
       });
 
       setName('');
@@ -64,7 +59,14 @@ function Inscription() {
 
       setMessageInscriptionEffectuée('Votre compte a bien été créé !');
     } catch (error) {
-      console.error('Erreur lors de l\'ajout de l\'utilisateur : ', error);
+      if ((error as firebase.auth.AuthError).code === 'auth/email-already-in-use') {
+        setMessageEmailDejaUtilisé(
+          'Cet email est déjà utilisé. Vous voulez vous connecter ? ' +
+            <Link to="/connexion">Cliquez ici</Link>
+        );
+      } else {
+        console.error('Erreur lors de l\'ajout de l\'utilisateur : ', error);
+      }
     }
   };
 
@@ -101,7 +103,7 @@ function Inscription() {
           <button type="submit">Créer</button>
         </form>
         <br></br>
-        <p>Déja un compte ? <Link className="boutonLiens" to="/connexion">Connectez-vous ici</Link></p>
+        <p>Déjà un compte ? <Link className="boutonLiens" to="/connexion">Connectez-vous ici</Link></p>
         <br></br>
         {messageInscriptionEffectuée && <p className="msgInscriptionValide">{messageInscriptionEffectuée}</p>}
       </div>

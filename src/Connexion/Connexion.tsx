@@ -4,6 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { firebaseConfig } from '../Fonctions/firebaseConfig';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 
 function Inscription() {
@@ -22,26 +23,44 @@ function Inscription() {
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
     setMessageInscriptionEffectuée('');
     e.preventDefault();
-
+  
     if (email === '') {
       setMessageFormEmailVide('Veuillez remplir ce champ avec votre email');
       return;
-    } else { setMessageFormEmailVide(''); setMessageInscriptionEffectuée('');}
-
+    } else {
+      setMessageFormEmailVide('');
+      setMessageInscriptionEffectuée('');
+    }
+  
     if (password === '') {
       setMessageFormPasswordVide('Veuillez remplir ce champ avec votre mot de passe');
       return;
-    } else { setMessageFormPasswordVide(''); setMessageInscriptionEffectuée('');}
-
-    const getEmail = query(collection(db, 'utilisateur'), where('email', '==', email), where('password', '==', password));
-    const resultGetEmail = await getDocs(getEmail);
-
-    if (!resultGetEmail.empty) {
-      setMessageInscriptionEffectuée('Votre compte a bien été connecté !');
-      return;
-    } else { setMessageFormInvalide('Connexion refusée : email ou mot de passe incorrect');}
+    } else {
+      setMessageFormPasswordVide('');
+      setMessageInscriptionEffectuée('');
+    }
+  
+    const auth = getAuth(); // Obtenez l'objet d'authentification
+  
+    // Authentification de l'utilisateur avec l'e-mail et le mot de passe
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Connexion réussie
+        const user = userCredential.user;
+        const userID = user.uid; // Récupérez l'ID de l'utilisateur (token)
+  
+        // Stockez le token dans localStorage
+        localStorage.setItem('userID', userID);
+        console.log(userID);
+  
+        setMessageInscriptionEffectuée('Votre compte a bien été connecté !');
+      })
+      .catch((error) => {
+        // Gestion des erreurs d'authentification
+        console.error('Erreur d\'authentification : ', error);
+        setMessageFormInvalide('Connexion refusée : email ou mot de passe incorrect');
+      });
   };
-
   return (
     <div id="page_inscription">
       <h1>Connexion</h1>
