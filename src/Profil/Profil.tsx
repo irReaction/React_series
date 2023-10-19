@@ -4,7 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../Fonctions/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, reauthenticateWithCredential, updateEmail, verifyBeforeUpdateEmail, EmailAuthProvider } from 'firebase/auth';
+import { getAuth, reauthenticateWithCredential, updateEmail, verifyBeforeUpdateEmail, updatePassword, EmailAuthProvider } from 'firebase/auth';
 
 function Profil() {
   const navigate = useNavigate();
@@ -13,9 +13,11 @@ function Profil() {
   const [dataEmail, setDataEmail] = useState('');
   const [modifieName, setModifieName] = useState(false);
   const [modifieEmail, setModifieEmail] = useState(false);
+  const [modifiePassword, setModifiePassword] = useState(false); // Nouveau state pour la modification du mot de passe
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState(''); // State pour stocker le mot de passe actuel
+  const [newPassword, setNewPassword] = useState(''); // Nouveau state pour le nouveau mot de passe
+  const [currentPassword, setCurrentPassword] = useState('');
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
@@ -76,10 +78,7 @@ function Profil() {
     try {
       const user = auth.currentUser;
       if (user && user.email) {
-      
-        console.log(user.email);
-        console.log(newEmail);
-        const credential = EmailAuthProvider.credential(user.email, currentPassword); // Utilisation de la méthode EmailAuthProvider.credential pour créer le credential
+        const credential = EmailAuthProvider.credential(user.email, currentPassword);
         await reauthenticateWithCredential(user, credential);
     
         verifyBeforeUpdateEmail(user, newEmail)
@@ -89,7 +88,6 @@ function Profil() {
           .catch((error) => {
             console.error('Erreur lors de la mise à jour de l\'email : ', error);
           });
-
 
         const requeteGetUser = query(collection(db, 'utilisateur'), where('email', '==', userEmail));
         const resultUser = await getDocs(requeteGetUser);
@@ -103,11 +101,32 @@ function Profil() {
 
         setDataEmail(newEmail);
         setModifieEmail(false);
+        navigate('/connexion');
       } else {
         console.error('User is null');
       }
     } catch (error) {
       console.error('Erreur lors de la mise à jour de l\'email : ', error);
+    }
+  };
+
+  // Nouvelle fonction pour la modification du mot de passe
+  const modificationPassword = () => {
+    setModifiePassword(true);
+  };
+
+  const enregistrerPassword = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        await updatePassword(user, newPassword);
+        console.log('Mot de passe mis à jour avec succès');
+        setModifiePassword(false);
+      } else {
+        console.error('User is null');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du mot de passe : ', error);
     }
   };
 
@@ -145,6 +164,22 @@ function Profil() {
               <button onClick={enregistrerEmail}>Enregistrer</button>
             ) : (
               <button onClick={modificationEmail}>Modifier</button>
+            )}
+          </div>
+
+          <div className="profil_champs">
+            <p className="champs_profil">Mot de passe : {modifiePassword ? (
+              <div>
+                <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              </div>
+            ) : (
+              '**********' // Afficher des astérisques pour le mot de passe
+            )}
+            </p> 
+            {modifiePassword ? (
+              <button onClick={enregistrerPassword}>Enregistrer</button>
+            ) : (
+              <button onClick={modificationPassword}>Modifier</button>
             )}
           </div>
         </div>
