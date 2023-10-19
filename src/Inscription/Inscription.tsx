@@ -3,7 +3,7 @@ import './Inscription.scss';
 import { BrowserRouter as Router, Route, Link, useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { firebaseConfig } from '../Fonctions/firebaseConfig';
 import firebase from 'firebase/compat/app';
 
@@ -21,44 +21,53 @@ function Inscription() {
   const db = getFirestore(app);
   const auth = getAuth(app);
   const navigate = useNavigate(); 
+
+  
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
     setMessageInscriptionEffectuée('');
     setMessageFormNameVide('');
     setMessageFormEmailVide('');
     setMessageFormPasswordVide('');
     setMessageEmailDejaUtilisé('');
-
+  
     if (name === '') {
       setMessageFormNameVide('Veuillez remplir ce champ avec votre pseudo');
       return;
     }
-
+  
     if (email === '') {
       setMessageFormEmailVide('Veuillez remplir ce champ avec votre email');
       return;
     }
-
+  
     if (password === '') {
       setMessageFormPasswordVide('Veuillez remplir ce champ avec votre mot de passe');
       return;
     }
-
+  
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
+  
+      // Envoie de la vérification par email
+      await sendEmailVerification(user);
+  
+      // Enregistrement des données dans la base de données
       const docRef = await addDoc(collection(db, 'utilisateur'), {
         name: name,
         email: user.email,
       });
-
+  
       setName('');
       setEmail('');
       setPassword('');
-
-      setMessageInscriptionEffectuée('Votre compte a bien été créé !');
-      setTimeout(() => {navigate('/connexion');}, 1500);      
+  
+      setMessageInscriptionEffectuée('Votre compte a bien été créé. Veuillez vérifier votre email avant de vous connecter.');
+      setTimeout(() => {
+        navigate('/connexion');
+      }, 1500);
     } catch (error) {
       if ((error as firebase.auth.AuthError).code === 'auth/email-already-in-use') {
         setMessageEmailDejaUtilisé(
@@ -70,7 +79,8 @@ function Inscription() {
       }
     }
   };
-
+  
+  
   return (
     <div id="page_inscription">
       <h1>Inscription</h1>
@@ -111,5 +121,6 @@ function Inscription() {
     </div>
   );
 }
+
 
 export default Inscription;

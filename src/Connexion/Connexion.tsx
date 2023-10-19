@@ -23,6 +23,7 @@ function Inscription() {
 
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
     setMessageInscriptionEffectuée('');
+    setMessageFormInvalide('');
     e.preventDefault();
   
     if (email === '') {
@@ -45,6 +46,7 @@ function Inscription() {
   
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        setMessageFormEmailVide('');
         const user = userCredential.user;
         const userEmail = user.email; 
 
@@ -54,8 +56,6 @@ function Inscription() {
         } else {
           console.log('Aucun email stocké en local.');
         }
-        
-        console.log(localStorage.userEmail);
         
         setMessageInscriptionEffectuée('Votre compte a bien été connecté !');
         setTimeout(() => {navigate('/profil');}, 1500);      
