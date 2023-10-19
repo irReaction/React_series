@@ -134,7 +134,6 @@ function Profil() {
   return (
     <div id="page_inscription">
       <h1>Profil</h1>
-      <button onClick={logout}>Déconnexion</button>
       <div id="div_inscription">
         <div id="page_profil">
           <div className="profil_champs">
@@ -145,9 +144,9 @@ function Profil() {
             )}
             </p> 
             {modifieName ? (
-              <button onClick={enregistrerName}>Enregistrer</button>
+              <button className="boutonModifier" onClick={enregistrerName}>Enregistrer</button>
             ) : (
-              <button onClick={modificationName}>Modifier</button>
+              <button className="boutonModifier" onClick={modificationName}>Modifier</button>
             )}
           </div>
           
@@ -162,9 +161,9 @@ function Profil() {
             )}
             </p> 
             {modifieEmail ? (
-              <button onClick={enregistrerEmail}>Enregistrer</button>
+              <button className="boutonModifier" onClick={enregistrerEmail}>Enregistrer</button>
             ) : (
-              <button onClick={modificationEmail}>Modifier</button>
+              <button className="boutonModifier" onClick={modificationEmail}>Modifier</button>
             )}
           </div>
 
@@ -178,12 +177,13 @@ function Profil() {
             )}
             </p> 
             {modifiePassword ? (
-              <button onClick={enregistrerPassword}>Enregistrer</button>
+              <button className="boutonModifier" onClick={enregistrerPassword}>Enregistrer</button>
             ) : (
-              <button onClick={modificationPassword}>Modifier</button>
+              <button className="boutonModifier" onClick={modificationPassword}>Modifier</button>
             )}
           </div>
         </div>
+        <button className="boutonLogout" onClick={logout}>Déconnexion</button>
       </div>
     </div>
   );
