@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
-import Home from "./components/home";
-import Serie from "./components/serie";
+import Home from "./pages/home/home";
+import Serie from "./components/serie/serie";
 
 import "./App.css";
 

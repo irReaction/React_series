@@ -1,7 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './serie.scss';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./serie.scss";
+
+// api stuff
+import fetchSerieDetails from "../../api/tmdb/fetchSerieDetails";
 
 interface Movie {
   id: number;
@@ -18,20 +20,11 @@ function Serie() {
   const [serie, setSerie] = useState<Movie | null>(null);
 
   useEffect(() => {
-    const fetchSerieDetails = async () => {
-      try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
-          params: {
-            api_key: 'c502595c535b3bcebeeec3b468325e4b',
-          },
-        });
+    fetchSerieDetails().then((response) => {
+      if (response) {
         setSerie(response.data);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des détails du film :', error);
       }
-    };
-
-    fetchSerieDetails();
+    });
   }, [id]);
 
   if (!serie) {
@@ -41,7 +34,10 @@ function Serie() {
   return (
     <div>
       <h1>Détails du film : {serie.title}</h1>
-      <img src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`} alt={serie.title} />
+      <img
+        src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
+        alt={serie.title}
+      />
       <p>Résumé : {serie.overview}</p>
       <p>Date de sortie : {serie.release_date}</p>
       <p>Note : {serie.vote_average}</p>
