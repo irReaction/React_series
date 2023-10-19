@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { seriesData } from './home';
+import './serie.scss'
 
 function Serie() {
   const { id } = useParams();

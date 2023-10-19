@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './home.scss';
 
 export const seriesData = [
@@ -15,6 +16,27 @@ function Home() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [sortOrderByName, setSortOrderByName] = useState('asc');
   const [selectedTheme, setSelectedTheme] = useState('Tous');
+
+  useEffect(() => {
+    // Fonction pour récupérer les données des films depuis l'API TMDb
+    const fetchSeriesData = async () => {
+      try {
+        const response = await axios.get(
+          'https://api.themoviedb.org/3/discover/movie', {
+            params: {
+              api_key: 'c502595c535b3bcebeeec3b468325e4b',
+              sort_by: `vote_average.${sortOrder}`,
+            },
+          }
+        );
+        setSeries(response.data.results);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données de films :', error);
+      }
+    };
+
+    fetchSeriesData();
+  }, [sortOrder]);
 
   useEffect(() => {
     const sortSeries = () => {
