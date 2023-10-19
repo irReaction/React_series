@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './home.scss';
 
-const seriesData = [
+export const seriesData = [
   { id: 1, name: 'Avengers', rating: 4.5, imageUrl: 'serie1.jpg', theme: 'superhero' },
   { id: 2, name: 'James Bond', rating: 3.8, imageUrl: 'serie2.jpg', theme: 'action' },
   { id: 3, name: 'Sherlock Holmes', rating: 4.2, imageUrl: 'serie3.jpg', theme: 'enquete' },
@@ -10,7 +10,7 @@ const seriesData = [
   { id: 5, name: 'Mad Max', rating: 2.7, imageUrl: 'serie5.jpg', theme: 'action' },
 ];
 
-const Home: React.FC = () => {
+function Home() {
   const [series, setSeries] = useState(seriesData);
   const [sortOrder, setSortOrder] = useState('asc');
   const [sortOrderByName, setSortOrderByName] = useState('asc');
