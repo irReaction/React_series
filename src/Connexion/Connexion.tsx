@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Connexion.scss';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, useNavigate } from 'react-router-dom';
 import { firebaseConfig } from '../Fonctions/firebaseConfig';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -18,7 +18,8 @@ function Inscription() {
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  
+  const navigate = useNavigate(); 
+
 
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
     setMessageInscriptionEffectuée('');
@@ -40,23 +41,26 @@ function Inscription() {
       setMessageInscriptionEffectuée('');
     }
   
-    const auth = getAuth(); // Obtenez l'objet d'authentification
+    const auth = getAuth(); 
   
-    // Authentification de l'utilisateur avec l'e-mail et le mot de passe
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Connexion réussie
         const user = userCredential.user;
-        const userID = user.uid; // Récupérez l'ID de l'utilisateur (token)
-  
-        // Stockez le token dans localStorage
-        localStorage.setItem('userID', userID);
-        console.log(userID);
-  
+        const userEmail = user.email; 
+
+        if (userEmail !== null) {
+          console.log(userEmail);
+          localStorage.setItem('userEmail', userEmail);
+        } else {
+          console.log('Aucun email stocké en local.');
+        }
+        
+        console.log(localStorage.userEmail);
+        
         setMessageInscriptionEffectuée('Votre compte a bien été connecté !');
+        setTimeout(() => {navigate('/profil');}, 1500);      
       })
       .catch((error) => {
-        // Gestion des erreurs d'authentification
         console.error('Erreur d\'authentification : ', error);
         setMessageFormInvalide('Connexion refusée : email ou mot de passe incorrect');
       });
@@ -82,7 +86,7 @@ function Inscription() {
           />
           {messageFormPasswordVide && <p className="msgErrorFormVide">{messageFormPasswordVide}</p>}
 
-          <button type="submit">Créer</button>
+          <button type="submit">Connexion</button>
         </form>
         <br></br>
         <p>Pas encore de compte ? <Link className="boutonLiens" to="/inscription">Inscrivez-vous ici</Link></p>

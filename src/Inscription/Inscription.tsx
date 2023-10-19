@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Inscription.scss';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -20,7 +20,7 @@ function Inscription() {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
-
+  const navigate = useNavigate(); 
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessageInscriptionEffectuée('');
@@ -58,6 +58,7 @@ function Inscription() {
       setPassword('');
 
       setMessageInscriptionEffectuée('Votre compte a bien été créé !');
+      setTimeout(() => {navigate('/connexion');}, 1500);      
     } catch (error) {
       if ((error as firebase.auth.AuthError).code === 'auth/email-already-in-use') {
         setMessageEmailDejaUtilisé(
