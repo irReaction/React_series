@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import { useNavigate } from 'react-router-dom';
 import { getFirestore, addDoc, collection, query, where, DocumentData, Query, DocumentReference, getDocs } from "firebase/firestore";
 
 // css
@@ -22,6 +23,7 @@ import {
 import { firebaseConfig } from "../../Fonctions/firebaseConfig";
 
 function Home() {
+  const navigate = useNavigate();
   const [series, setSeries] = useState<Movie[]>([]);
   const [sortOrderByNote, setSortOrderByNote] = useState("asc");
   const [sortOrderByName, setSortOrderByName] = useState("asc");
@@ -86,42 +88,49 @@ function Home() {
 
   return (
 
-    <div>
+    <div className="home">
       {!userLocal ? (
-        <Link to={`/connexion`}><h1>Connecte-toi</h1></Link>
+        <div className="no_profile">
+          <button className="route" onClick={() => navigate('/connexion')}>Connecte-toi</button>
+        </div>
       ) : (
-        <>
-          <Link to={`/profil`}><h3>Profil</h3></Link>
-          <h1>LISTE DES SÉRIES</h1>
-          <div className="Home div_home">
-            <div className="Films div_home">
-              <div className="SearchBar div_home">
-                <Input onChange={(e) => { setSearch(e.target.value); }}></Input>
-              </div>
-              <div className="Buttons div_home">
-                <button className="Button" onClick={() => setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")}>
-                  Trier par note{" "}
-                  {sortOrderByNote === "asc" ? "décroissante" : "croissante"}
-                </button>
-                <button onClick={() => setSortOrderByName(sortOrderByName === "asc" ? "desc" : "asc")}>
-                  Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
-                </button>
-                <ul>
-                  {series.map((serie) => (
-                    <Link to={`/serie/${serie.id}`} key={serie.id}>
-                      <li>
-                        <button onClick={() => AjouteSerie(serie.id)}>+</button>
-                        <img src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`} alt={serie.title} />
-                        <h2>{serie.title}</h2>
-                        <p>Note : {serie.vote_average}</p>
-                      </li>
-                    </Link>
-                  ))}
-                </ul>
-              </div>
+        <div className="with_profile">
+          <div className="navigate">
+            <h1 className="title">LISTE DES SÉRIES</h1>
+            <button className="route" onClick={() => navigate('/profil')}>Profil</button>
+          </div>
+          <div className="searchBar">
+            <Input onChange={(e) => { setSearch(e.target.value); }}></Input>
+          </div>
+          <div className="buttons">
+            <div className="selectButton">
+              <button className="buttonId" onClick={() => setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")}>
+                Trier par note{" "}
+                {sortOrderByNote === "asc" ? "décroissante" : "croissante"}
+              </button>
+            </div>
+            <div className="selectButton">
+              <button className="buttonId" onClick={() => setSortOrderByName(sortOrderByName === "asc" ? "desc" : "asc")}>
+                Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
+              </button>
             </div>
           </div>
-        </>
+          <div className="series">
+            <ul>
+              {series.map((serie) => (
+                <div className="oneSerie" key={serie.id}>
+                  <Link to={`/serie/${serie.id}`}>
+                    <li>
+                      <img src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`} alt={serie.title} /><br />
+                      <button onClick={() => AjouteSerie(serie.id)}>+</button>
+                      <p>Note : {serie.vote_average}</p>
+                    </li>
+                  </Link>
+                </div>
+              ))}
+            </ul>
+          </div>
+        </div>
       )}
     </div>
   );
