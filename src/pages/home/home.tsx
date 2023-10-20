@@ -23,6 +23,7 @@ function Home() {
   const [sortOrderByNote, setSortOrderByNote] = useState("asc");
   const [sortOrderByName, setSortOrderByName] = useState("asc");
   const [search, setSearch] = useState("");
+  const userLocal = localStorage.userEmail;
 
   useEffect(() => {
     if (search) {
@@ -56,6 +57,16 @@ function Home() {
   }, [sortOrderByName]);
 
   return (
+    <div>
+      {!userLocal && (
+        <>
+          <Link to={`/connexion`}><h1>Connecte-toi</h1></Link>
+        </>
+      )}
+      {userLocal && (
+        <>
+          <Link to={`/profil`}><h3>Profil</h3></Link>
+          <h1>LISTE DES FILMS</h1>
     <div className="Home div_home">
       <div className="Films div_home">
         <div className="SearchBar div_home">
@@ -81,22 +92,22 @@ function Home() {
           >
             Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
           </button>
-        </div>
-        <ul>
-          {series.map((serie) => (
-            <Link to={`/serie/${serie.id}`} key={serie.id}>
-              <li>
-                <img
-                  src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
-                  alt={serie.title}
-                />
-                <h2>{serie.title}</h2>
-                <p>Note : {serie.vote_average}</p>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
+          <ul>
+            {series.map((serie) => (
+              <Link to={`/serie/${serie.id}`} key={serie.id}>
+                <li>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
+                    alt={serie.title}
+                  />
+                  <h2>{serie.title}</h2>
+                  <p>Note : {serie.vote_average}</p>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
