@@ -1,3 +1,5 @@
+#Groupe : Lenny XIONG, Florian RICHET, Hywel BONNEFOND (scrum master)
+
 # Setup + start :
 
 `npm i` to install the dependencies
