@@ -1,0 +1,33 @@
+div {
+    text-align: center;
+    margin: 20px;
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+    }
+  
+    p {
+      font-size: 14px;
+      margin: 5px 0;
+  
+      &.theme {
+        font-weight: bold;
+      }
+    }
+  
+    button.active {
+      background-color: #28a745;
+  
+      &:hover {
+        background-color: #1e7e34;
+      }
+    }
+  }
+  
