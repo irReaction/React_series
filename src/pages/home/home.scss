@@ -1,66 +1,105 @@
 div {
-    text-align: center;
-    margin: 20px;
+  text-align: center;
+  margin: 20px;
   
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+
+    &:hover {
+      background-color: #0056b3;
     }
-  
-    button {
-      padding: 8px 16px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-right: 10px;
-  
-      &:hover {
-        background-color: #0056b3;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 250px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+
+      p {
+        font-size: 14px;
+        margin: 5px 0;
+
+        &.theme {
+          font-weight: bold;
+        }
       }
     }
-  
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-  
-      li {
-        margin: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 250px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
-        img {
-          max-width: 100%;
-          height: auto;
-        }
-  
-        h2 {
-          font-size: 18px;
-          margin: 10px 0;
-        }
-  
-        p {
-          font-size: 14px;
-          margin: 5px 0;
-  
-          &.theme {
-            font-weight: bold;
-          }
-        }
-      }
+  }
+
+  button.active {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #1e7e34;
     }
-  
-    button.active {
-      background-color: #28a745;
-  
-      &:hover {
-        background-color: #1e7e34;
-      }
-    }
-  }  
+  }
+}
+
+.Films {
+  width: 1280px;
+  height: 1865px;
+  top: 111px;
+  padding: 0px, 24px, 0px, 24px;
+  gap: 24px;
+}
+
+.Home {
+  width: 1280px;
+  height: 1964px;
+  top: -641px;
+  left: 163px;
+  background-color: #171611;
+}
+
+.SearchBar {
+  width: 1232px;
+  height: 56px;
+  border-radius: 42px;
+  padding: 10px, 24px, 10px, 24px;
+  gap: 10px;
+}
+
+.Buttons {
+  width: 668px;
+  height: 31px;
+  gap: 10px;
+}
+
+.Button {
+  width: 108px;
+  height: 31px;
+  border-radius: 10px;
+  padding: 8px;
+  gap: 10px;
+  color: #F1F1F1;
+}

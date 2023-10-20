@@ -56,42 +56,47 @@ function Home() {
   }, [sortOrderByName]);
 
   return (
-    <div>
-      <h1>LISTE DES FILMS</h1>
-      <Input
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-      ></Input>
-      <button
-        onClick={() =>
-          setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
-        }
-      >
-        Trier par note{" "}
-        {sortOrderByNote === "asc" ? "décroissante" : "croissante"}
-      </button>
-      <button
-        onClick={() =>
-          setSortOrderByName(sortOrderByName === "asc" ? "desc" : "asc")
-        }
-      >
-        Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
-      </button>
-      <ul>
-        {series.map((serie) => (
-          <Link to={`/serie/${serie.id}`} key={serie.id}>
-            <li>
-              <img
-                src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
-                alt={serie.title}
-              />
-              <h2>{serie.title}</h2>
-              <p>Note : {serie.vote_average}</p>
-            </li>
-          </Link>
-        ))}
-      </ul>
+    <div className="Home">
+      <div className="Films">
+        <div className="SearchBar">
+          <Input
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          ></Input>
+        </div>
+        <div className="Buttons">
+          <button className="Button"
+            onClick={() =>
+              setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
+            }
+          >
+            Trier par note{" "}
+            {sortOrderByNote === "asc" ? "décroissante" : "croissante"}
+          </button>
+          <button
+            onClick={() =>
+              setSortOrderByName(sortOrderByName === "asc" ? "desc" : "asc")
+            }
+          >
+            Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
+          </button>
+        </div>
+        <ul>
+          {series.map((serie) => (
+            <Link to={`/serie/${serie.id}`} key={serie.id}>
+              <li>
+                <img
+                  src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
+                  alt={serie.title}
+                />
+                <h2>{serie.title}</h2>
+                <p>Note : {serie.vote_average}</p>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // css and components
@@ -41,6 +41,10 @@ function Serie() {
           <p>Chargement en cours...</p>
         </div>
       )}
+
+      <Link to={`/`}>
+        <h1>Retour à l'accueil</h1>
+      </Link>
     </>
   );
 }
