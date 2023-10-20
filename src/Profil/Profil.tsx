@@ -173,7 +173,7 @@ function Profil() {
                 <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
               </div>
             ) : (
-              '**********' // Afficher des astérisques pour le mot de passe
+              '**********' 
             )}
             </p> 
             {modifiePassword ? (
