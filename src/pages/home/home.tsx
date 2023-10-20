@@ -23,6 +23,7 @@ function Home() {
   const [sortOrderByNote, setSortOrderByNote] = useState("asc");
   const [sortOrderByName, setSortOrderByName] = useState("asc");
   const [search, setSearch] = useState("");
+  const userLocal = localStorage.userEmail;
 
   useEffect(() => {
     if (search) {
@@ -56,17 +57,22 @@ function Home() {
   }, [sortOrderByName]);
 
   return (
-    <div className="Home">
-      <div className="Films">
-        <div className="SearchBar">
+    <div>
+      {!userLocal && (
+        <>
+          <Link to={`/connexion`}><h1>Connecte-toi</h1></Link>
+        </>
+      )}
+      {userLocal && (
+        <>
+          <Link to={`/profil`}><h3>Profil</h3></Link>
+          <h1>LISTE DES FILMS</h1>
           <Input
             onChange={(e) => {
               setSearch(e.target.value);
             }}
           ></Input>
-        </div>
-        <div className="Buttons">
-          <button className="Button"
+          <button
             onClick={() =>
               setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
             }
@@ -81,22 +87,22 @@ function Home() {
           >
             Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
           </button>
-        </div>
-        <ul>
-          {series.map((serie) => (
-            <Link to={`/serie/${serie.id}`} key={serie.id}>
-              <li>
-                <img
-                  src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
-                  alt={serie.title}
-                />
-                <h2>{serie.title}</h2>
-                <p>Note : {serie.vote_average}</p>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
+          <ul>
+            {series.map((serie) => (
+              <Link to={`/serie/${serie.id}`} key={serie.id}>
+                <li>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
+                    alt={serie.title}
+                  />
+                  <h2>{serie.title}</h2>
+                  <p>Note : {serie.vote_average}</p>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }

@@ -18,7 +18,7 @@ function Inscription() {
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
 
   const gestionFormValidation = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,7 +48,7 @@ function Inscription() {
       .then((userCredential) => {
         setMessageFormEmailVide('');
         const user = userCredential.user;
-        const userEmail = user.email; 
+        const userEmail = user.email;
 
         if (userEmail !== null) {
           console.log(userEmail);
