@@ -22,8 +22,9 @@ function Serie() {
 
   return (
     <>
+    <div className="page_serie_info">
       {serie && (
-        <div>
+        <div className="div_serie_info">
           <h1>Détails du film : {serie.title}</h1>
           <img
             src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
@@ -43,8 +44,9 @@ function Serie() {
       )}
 
       <Link to={`/`}>
-        <h1>Retour à l'accueil</h1>
+        <h1 className="h1_retour_accueil">Retour à l'accueil</h1>
       </Link>
+      </div>
     </>
   );
 }

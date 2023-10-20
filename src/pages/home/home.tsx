@@ -56,16 +56,16 @@ function Home() {
   }, [sortOrderByName]);
 
   return (
-    <div className="Home">
-      <div className="Films">
-        <div className="SearchBar">
+    <div className="Home div_home">
+      <div className="Films div_home">
+        <div className="SearchBar div_home">
           <Input
             onChange={(e) => {
               setSearch(e.target.value);
             }}
           ></Input>
         </div>
-        <div className="Buttons">
+        <div className="Buttons div_home">
           <button className="Button"
             onClick={() =>
               setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
