@@ -28,6 +28,7 @@ function Home() {
   const [search, setSearch] = useState("");
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const userLocal = localStorage.userEmail;
 
   useEffect(() => {
     if (search) {
@@ -84,46 +85,44 @@ function Home() {
   };
 
   return (
-    <div className="Home div_home">
-      <div className="Films div_home">
-        <div className="SearchBar div_home">
-          <Input
-            onChange={(e) => setSearchValue(e.target.value)}
-          ></Input>
-        </div>
-        <div className="Buttons div_home">
-          <button className="Button"
-            onClick={() =>
-              setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
-            }
-          >
-            Trier par note{" "}
-            {sortOrderByNote === "asc" ? "décroissante" : "croissante"}
-          </button>
-          <button
-            onClick={() =>
-              setSortOrderByName(sortOrderByName === "asc" ? "desc" : "asc")
-            }
-          >
-            Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
-          </button>
-        </div>
-        <ul>
-          {series.map((serie) => (
-            <Link to={`/serie/${serie.id}`} key={serie.id}>
-              <li>
-                <button onClick={() => AjouteSerie(serie.id)}>+</button>
-                <img
-                  src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
-                  alt={serie.title}
-                />
-                <h2>{serie.title}</h2>
-                <p>Note : {serie.vote_average}</p>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
+
+    <div>
+      {!userLocal ? (
+        <Link to={`/connexion`}><h1>Connecte-toi</h1></Link>
+      ) : (
+        <>
+          <Link to={`/profil`}><h3>Profil</h3></Link>
+          <h1>LISTE DES FILMS</h1>
+          <div className="Home div_home">
+            <div className="Films div_home">
+              <div className="SearchBar div_home">
+                <Input onChange={(e) => { setSearch(e.target.value); }}></Input>
+              </div>
+              <div className="Buttons div_home">
+                <button className="Button" onClick={() => setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")}>
+                  Trier par note{" "}
+                  {sortOrderByNote === "asc" ? "décroissante" : "croissante"}
+                </button>
+                <button onClick={() => setSortOrderByName(sortOrderByName === "asc" ? "desc" : "asc")}>
+                  Trier par nom {sortOrderByName === "asc" ? "décroissant" : "croissant"}
+                </button>
+                <ul>
+                  {series.map((serie) => (
+                    <Link to={`/serie/${serie.id}`} key={serie.id}>
+                      <li>
+                        <button onClick={() => AjouteSerie(serie.id)}>+</button>
+                        <img src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`} alt={serie.title} />
+                        <h2>{serie.title}</h2>
+                        <p>Note : {serie.vote_average}</p>
+                      </li>
+                    </Link>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

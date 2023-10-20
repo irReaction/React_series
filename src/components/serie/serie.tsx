@@ -13,6 +13,7 @@ import Movie from "../../misc/interfaces/interfaces";
 function Serie() {
   const { id } = useParams();
   const [serie, setSerie] = useState<Movie | null>(null);
+  const userLocal = localStorage.userEmail;
 
   useEffect(() => {
     fetchSerieDetails(id).then((response) => {
@@ -22,31 +23,39 @@ function Serie() {
 
   return (
     <>
-    <div className="page_serie_info">
-      {serie && (
-        <div className="div_serie_info">
-          <h1>Détails du film : {serie.title}</h1>
-          <img
-            src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
-            alt={serie.title}
-          />
-          <p>Résumé : {serie.overview}</p>
-          <p>Date de sortie : {serie.release_date}</p>
-          <p>Note : {serie.vote_average}</p>
-          <p>Nombre de votes : {serie.vote_count}</p>
-        </div>
-      )}
+      {!userLocal ? (
+        <Link to={`/connexion`}>
+          <h1>Connecte-toi</h1>
+        </Link>
+      ) : (
+        <div className="page_serie_info">
+          {serie ? (
+            <div className="div_serie_info">
+              <h1>Détails du film : {serie.title}</h1>
+              <img
+                src={`https://image.tmdb.org/t/p/w200/${serie.poster_path}`}
+                alt={serie.title}
+              />
+              <p>Résumé : {serie.overview}</p>
+              <p>Date de sortie : {serie.release_date}</p>
+              <p>Note : {serie.vote_average}</p>
+              <p>Nombre de votes : {serie.vote_count}</p>
+            </div>
+          ) : (
+            <div>
+              <p>Chargement en cours...</p>
+            </div>
+          )}
 
-      {!serie && (
-        <div>
-          <p>Chargement en cours...</p>
+          <Link to={`/`}>
+            <h1>Retour à l'accueil</h1>
+          </Link>
         </div>
       )}
 
       <Link to={`/`}>
         <h1 className="h1_retour_accueil">Retour à l'accueil</h1>
       </Link>
-      </div>
     </>
   );
 }
