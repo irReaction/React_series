@@ -83,8 +83,6 @@ function Inscription() {
       });
   };
 
-  console.log(import.meta.env.REACT_APP_API_KEY);
-
   return (
     <div id="page_inscription">
       <h1>Connexion</h1>
