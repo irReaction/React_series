@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection, query, where, DocumentData, Query, DocumentReference, getDocs } from "firebase/firestore";
+import { getFirestore, addDoc, collection, query, where, DocumentData, Query, DocumentReference, getDocs, updateDoc } from "firebase/firestore";
 
 // css
 import "./home.scss";
@@ -65,11 +65,15 @@ function Home() {
       const userEmail = localStorage.userEmail;
       const userQuery = query(collection(db, 'utilisateur'), where('email', '==', userEmail));
       const userQuerySnapshot = await getDocs(userQuery);
-
+  
       if (!userQuerySnapshot.empty) {
         const userDocRef: DocumentReference = userQuerySnapshot.docs[0].ref;
-        await addDoc(collection(userDocRef, 'series'), {
-          seriesId: serieID,
+          const userDoc = userQuerySnapshot.docs[0];
+          const currentSeries = userDoc.data().seriesId || [];
+          currentSeries.push(serieID);
+          
+          await updateDoc(userDocRef, {
+          seriesId: currentSeries,
         });
         console.log("Série ajoutée");
       } else {
@@ -79,6 +83,7 @@ function Home() {
       console.error('Erreur lors de l\'ajout de la série : ', error);
     }
   };
+  
 
   const setSearchValue = (value: string) => {
     setSearch(value);
