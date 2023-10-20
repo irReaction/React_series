@@ -1,4 +1,4 @@
-#Groupe : Lenny XIONG, Florian RICHET, Hywel BONNEFOND (scrum master)
+Groupe : Lenny XIONG, Florian RICHET, Hywel BONNEFOND (scrum master)
 
 # Setup + start :
 
