@@ -1,0 +1,140 @@
+html
+    {
+        body{
+            background: url('../assets/img/background.jpg');
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+    }
+.profil{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.bouton_accueil
+    {
+        margin-bottom: 2%;
+        margin-top: 2%;
+        margin-left: 3%;
+        padding-left: 5%;
+        padding-right: 5%;
+        border: none;
+        border-radius: 10px;
+        background-color: #00a94c;
+        color: white;
+    }
+#page_inscription 
+    {
+        display: flex;
+        flex-direction: column;
+        margin: 20%;
+        background-color: #292929;
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+     h1
+        {
+            margin-right: 48%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+    
+    #page_profil
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: flex-end;
+        flex-direction: column;
+    }
+    .profil_champs
+        {
+            
+            width: -webkit-fill-available;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }    
+        .profil_champs_notifs
+        {
+            width: -webkit-fill-available;
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 38%;
+        } 
+        .liste_notifs{
+            margin-top: 1%;
+            margin-left: 10%;
+            a{
+                color: white !important;
+            }
+        }
+        .serie_delete_suivre{
+            
+        }
+    #input_modif_name
+        {
+            display: none;
+        }
+    .champs_profil{
+        display: flex;
+        margin-top: 4%;
+    }
+
+#div_inscription
+    {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 6%;
+
+        input
+            {
+                margin-bottom: 2%;
+                box-sizing: border-box;
+                font-family: inherit;
+                padding: 0px 20px 0 20px;
+                height: 50px;
+                font-size: 16px;
+                border: none;
+                border-radius: 10px;
+                background-color: #444;
+                color: #ffffff;
+            }
+        .boutonLogout
+            {
+                margin-left: 10%;
+                margin-right: 10%;
+                height: 50px;
+                margin-top: 2%;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: 700;
+                border-radius: 10px;
+                border: none;
+                color: #ffffff;
+                background-color: #9e3737;
+            }
+        .boutonModifier
+            {
+                padding-left: 5%;
+                padding-right: 5%;
+                margin-left: 10%;
+                margin-right: 10%;
+                height: 50px;
+                margin-top: 2%;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: 700;
+                border-radius: 10px;
+                border: none;
+                color: #ffffff;
+                background-color: #32607a;
+            }
+        
+    }
+
+
+    .boutonLiens
+        {
+            color: #40e4e2
+        }
