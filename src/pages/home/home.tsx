@@ -21,7 +21,7 @@ import {
   sortedSeriesByName,
   sortedSeriesByNote,
 } from "../../misc/functions/sortSeries";
-import { firebaseConfig } from "../../Fonctions/firebaseConfig";
+import { firebaseConfig } from "../../firebase/firebaseConfig";
 
 function Home() {
   const navigate = useNavigate();

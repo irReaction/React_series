@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_ESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+  apiKey: 'AIzaSyBLVJ-BSHE-c4bLNoFkm2w-VpELqUQYVEA',
+  authDomain: 'ereaction-32679.firebaseapp.com',
+  projectId: 'ereaction-32679',
+  storageBucket: 'ereaction-32679.appspot.com',
+  messagingSenderId: '1082701041903',
+  appId: '1:1082701041903:web:3912481e52aec1b31f4b1a',
+  measurementId: 'G-82HPE8X2S0',
 };

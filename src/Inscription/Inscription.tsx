@@ -80,6 +80,7 @@ function Inscription() {
         
         name: name,
         email: user.email,
+        seriesId: ['']
       });
 
       setName("");

@@ -1,11 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import './Profil.scss';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, where, getDocs, updateDoc, DocumentReference } from 'firebase/firestore';
-import { firebaseConfig } from '../Fonctions/firebaseConfig';
-import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, reauthenticateWithCredential, updateEmail, verifyBeforeUpdateEmail, updatePassword, EmailAuthProvider } from 'firebase/auth';
-import { set } from 'firebase/database';
 import React, { useState, useEffect } from "react";
 import "./Profil.scss";
 import { initializeApp } from "firebase/app";
@@ -18,7 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   reauthenticateWithCredential,
