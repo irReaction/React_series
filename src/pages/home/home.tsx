@@ -92,7 +92,7 @@ function Home() {
       ) : (
         <>
           <Link to={`/profil`}><h3>Profil</h3></Link>
-          <h1>LISTE DES FILMS</h1>
+          <h1>LISTE DES SÉRIES</h1>
           <div className="Home div_home">
             <div className="Films div_home">
               <div className="SearchBar div_home">
