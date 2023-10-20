@@ -55,6 +55,23 @@ html
             flex-direction: row-reverse;
             justify-content: flex-end;
         }    
+        .profil_champs_notifs
+        {
+            width: -webkit-fill-available;
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 38%;
+        } 
+        .liste_notifs{
+            margin-top: 1%;
+            margin-left: 10%;
+            a{
+                color: white !important;
+            }
+        }
+        .serie_delete_suivre{
+            
+        }
     #input_modif_name
         {
             display: none;

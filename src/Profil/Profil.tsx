@@ -1,3 +1,11 @@
+import React, { useState, useEffect } from 'react';
+import './Profil.scss';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, query, where, getDocs, updateDoc, DocumentReference } from 'firebase/firestore';
+import { firebaseConfig } from '../Fonctions/firebaseConfig';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, reauthenticateWithCredential, updateEmail, verifyBeforeUpdateEmail, updatePassword, EmailAuthProvider } from 'firebase/auth';
+import { set } from 'firebase/database';
 import React, { useState, useEffect } from "react";
 import "./Profil.scss";
 import { initializeApp } from "firebase/app";
@@ -27,11 +35,14 @@ function Profil() {
   const [dataEmail, setDataEmail] = useState("");
   const [modifieName, setModifieName] = useState(false);
   const [modifieEmail, setModifieEmail] = useState(false);
-  const [modifiePassword, setModifiePassword] = useState(false); // Nouveau state pour la modification du mot de passe
-  const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState(""); // Nouveau state pour le nouveau mot de passe
-  const [currentPassword, setCurrentPassword] = useState("");
+  const [modifiePassword, setModifiePassword] = useState(false); 
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState(''); 
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [dataNotif, setDataNotif] = useState(['']);
+  const [seriesData, setSeriesData] = useState([]);
+
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
@@ -48,14 +59,19 @@ function Profil() {
         where("email", "==", userEmail)
       );
       const resultGetUserData = await getDocs(q);
-
+  
       if (resultGetUserData.size > 0) {
         const userData = resultGetUserData.docs[0].data();
         setDataName(userData.name);
         setDataEmail(userData.email);
+  
+        const seriesIDArray = userData.seriesId;
+        setDataNotif(seriesIDArray);
+  
+        console.log(dataNotif);
       }
     }
-
+  
     fetchData();
   }, [userEmail, db, navigate]);
 
@@ -157,6 +173,15 @@ function Profil() {
     }
   };
 
+  const deleteSeries = async () => {
+
+    const deleteSerie = seriesData.slice();
+    setDataNotif(deleteSerie);
+  
+  };
+
+  
+
   return (
     <div id="page_inscription">
       <div className='profil'>
@@ -245,6 +270,20 @@ function Profil() {
               </button>
             )}
           </div>
+
+          <div className="profil_champs_notifs">
+            <p className="champs_profil">Prochaine sortie : </p>
+              <div className="liste_notifs">
+              {dataNotif.map((serie, index) => (
+                <div key={index}>
+                  <p>
+                    <Link to={`/serie/${serie}`}>{serie}</Link>
+                    <button className="serie_delete_suivre" onClick={() => deleteSeries()}>X</button>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>        
         </div>
         <button className="boutonLogout" onClick={logout}>
           Déconnexion
