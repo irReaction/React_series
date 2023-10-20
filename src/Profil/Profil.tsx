@@ -159,7 +159,10 @@ function Profil() {
 
   return (
     <div id="page_inscription">
-      <h1>Profil</h1>
+      <div className='profil'>
+        <h1>Profil</h1>
+        <button className='bouton_accueil' onClick={() => navigate('/')}>Accueil</button>
+      </div>
       <div id="div_inscription">
         <div id="page_profil">
           <div className="profil_champs">

@@ -72,12 +72,12 @@ function Inscription() {
         password
       );
       const user = userCredential.user;
-
-      // Envoie de la vérification par email
+  
       await sendEmailVerification(user);
+  
+      const docRef = await addDoc(collection(db, 'utilisateur'), {
 
-      // Enregistrement des données dans la base de données
-      const docRef = await addDoc(collection(db, "utilisateur"), {
+        
         name: name,
         email: user.email,
       });

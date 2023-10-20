@@ -1,0 +1,49 @@
+.page_serie_info{
+  background-color: #444;
+  padding: 3%;
+  border: none;
+  border-radius: 10px;
+} 
+.h1_retour_accueil{
+  color: white;
+  background-color: #32607a;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 2%;
+  border: none;
+  border-radius: 10px;
+  text-decoration: underline;
+  text-decoration-color: #32607a;
+}
+.div_serie_info {
+  text-align: center;
+  margin: 20px;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  p {
+    font-size: 14px;
+    margin: 5px 0;
+
+    &.theme {
+      font-weight: bold;
+    }
+  }
+
+  button.active {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #1e7e34;
+    }
+  }
+}
