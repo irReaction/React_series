@@ -5,7 +5,23 @@ html
             font-family:Verdana, Geneva, Tahoma, sans-serif;
         }
     }
-
+.profil{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.bouton_accueil
+    {
+        margin-bottom: 2%;
+        margin-top: 2%;
+        margin-left: 3%;
+        padding-left: 5%;
+        padding-right: 5%;
+        border: none;
+        border-radius: 10px;
+        background-color: #00a94c;
+        color: white;
+    }
 #page_inscription 
     {
         display: flex;
@@ -17,6 +33,7 @@ html
         border-radius: 10px;
      h1
         {
+            margin-right: 48%;
             display: flex;
             justify-content: center;
         }

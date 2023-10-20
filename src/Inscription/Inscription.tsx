@@ -51,10 +51,8 @@ function Inscription() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
   
-      // Envoie de la vérification par email
       await sendEmailVerification(user);
   
-      // Enregistrement des données dans la base de données
       const docRef = await addDoc(collection(db, 'utilisateur'), {
         name: name,
         email: user.email,
