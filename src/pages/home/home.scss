@@ -1,105 +1,143 @@
-.div_home {
-  text-align: center;
-  margin: 20px;
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+.home {
+  background-color: #171611;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 
-  button {
-    padding: 8px 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
+  .no_profile {
+    text-align: center;
 
-    &:hover {
-      background-color: #0056b3;
+    .route {
+      background-color: #32607a;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #D1D1D1;
+      }
     }
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  .with_profile {
+    .navigate {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-    li {
-      margin: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 250px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      .route {
+        background-color: #32607a;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
 
-      img {
-        max-width: 100%;
-        height: auto;
+        &:hover {
+          background-color: #D1D1D1;
+        }
       }
 
-      h2 {
-        font-size: 18px;
-        margin: 10px 0;
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
       }
+    }
 
-      p {
-        font-size: 14px;
-        margin: 5px 0;
+    .searchBar {
+      margin-top: 20px;
 
-        &.theme {
-          font-weight: bold;
+      & > .next-input {
+        width: 100%;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      margin-top: 20px;
+
+      .selectButton {
+        flex: 1;
+        text-align: center;
+
+        .buttonId {
+          background-color: #32607a;
+          color: #ffffff;
+          padding: 10px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #D1D1D1;
+          }
+        }
+      }
+    }
+
+    .series {
+      margin-top: 20px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .oneSerie {
+          width: calc(33.33% - 20px);
+
+          a {
+            text-decoration: none;
+            color: #ffffff;
+
+            li {
+              background-color: #292929;
+              padding: 10px;
+              border-radius: 5px;
+              transition: transform 0.3s;
+              cursor: pointer;
+
+              &:hover {
+                transform: scale(1.05);
+              }
+
+              button {
+                background-color: #00a94c;
+                color: #ffffff;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 50%;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: #0056b3;
+                }
+              }
+
+              img {
+                max-width: 100%;
+                height: auto;
+              }
+
+              h2 {
+                font-size: 18px;
+                margin: 10px 0;
+                color: #ffffff;
+              }
+
+              p {
+                font-size: 14px;
+                margin: 0;
+              }
+            }
+          }
         }
       }
     }
   }
-
-  button.active {
-    background-color: #28a745;
-
-    &:hover {
-      background-color: #1e7e34;
-    }
-  }
-}
-
-.Films {
-  width: 1280px;
-  height: 1865px;
-  top: 111px;
-  padding: 0px, 24px, 0px, 24px;
-  gap: 24px;
-}
-
-.Home {
-  width: 1280px;
-  height: 1964px;
-  top: -641px;
-  left: 163px;
-  background-color: #171611;
-}
-
-.SearchBar {
-  width: 1232px;
-  height: 56px;
-  border-radius: 42px;
-  padding: 10px, 24px, 10px, 24px;
-  gap: 10px;
-}
-
-.Buttons {
-  width: 668px;
-  height: 31px;
-  gap: 10px;
-}
-
-.Button {
-  width: 108px;
-  height: 31px;
-  border-radius: 10px;
-  padding: 8px;
-  gap: 10px;
-  color: #F1F1F1;
 }
