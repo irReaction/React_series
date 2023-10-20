@@ -15,24 +15,25 @@ html
         color: #ffffff;
         border: none;
         border-radius: 10px;
-    } h1
+     h1
         {
             display: flex;
             justify-content: center;
         }
+    }
 
 #div_inscription
     {
         display: flex;
         flex-direction: column;
         margin-bottom: 6%;
-    } form 
+     form 
         {
             margin-left: 10%;
             margin-right: 10%;
             display: flex;
             flex-direction: column;   
-        }
+        
         input
             {
                 margin-bottom: 2%;
@@ -60,6 +61,8 @@ html
                 color: #ffffff;
                 background-color: #32607a;
             }
+        }
+    }
 
     .msgInscriptionValide
         {

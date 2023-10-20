@@ -67,12 +67,17 @@ function Home() {
         <>
           <Link to={`/profil`}><h3>Profil</h3></Link>
           <h1>LISTE DES FILMS</h1>
+    <div className="Home div_home">
+      <div className="Films div_home">
+        <div className="SearchBar div_home">
           <Input
             onChange={(e) => {
               setSearch(e.target.value);
             }}
           ></Input>
-          <button
+        </div>
+        <div className="Buttons div_home">
+          <button className="Button"
             onClick={() =>
               setSortOrderByNote(sortOrderByNote === "asc" ? "desc" : "asc")
             }
